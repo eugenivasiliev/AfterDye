@@ -1,13 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IColourable
 {
     private InputSystem_Actions input;
 
     [Header("Local")]
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private CircleCollider2D groundCheckCollider;
+    [SerializeField] private SpriteRenderer sr;
+    public Renderer Renderer => sr;
 
     [Header("Variables")]
     [SerializeField] private AnimationCurve horizontalMoveForce;
@@ -25,6 +27,7 @@ public class PlayerController : MonoBehaviour
 
     private List<Collider2D> groundContacts = new List<Collider2D>();
     private bool isGrounded => groundCheckCollider.GetContacts(groundContacts) > 0;
+
 
     void Start()
     {
