@@ -49,4 +49,7 @@ public class ColoursDB : ScriptableObject
             }
         }
     }
+    public List<ColourPair> List => colours;
+    public int ColourPairCount => colours.Count;
+    public int ColourCount => 2 * ColourPairCount;
 }
