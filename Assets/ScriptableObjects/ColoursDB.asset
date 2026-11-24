@@ -15,3 +15,5 @@ MonoBehaviour:
   colours:
   - colour: {r: 1, g: 0, b: 0, a: 1}
     opposite: {r: 0, g: 1, b: 0, a: 1}
+  - colour: {r: 0, g: 0, b: 1, a: 1}
+    opposite: {r: 1, g: 0.5019608, b: 0, a: 1}
