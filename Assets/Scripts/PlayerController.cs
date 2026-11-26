@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IColourable
@@ -10,6 +11,8 @@ public class PlayerController : MonoBehaviour, IColourable
     [SerializeField] private CircleCollider2D groundCheckCollider;
     [SerializeField] private SpriteRenderer sr;
     public Renderer Renderer => sr;
+    [SerializeField] private CombatController combat;
+    public CombatController Combat => combat;
 
     [Header("Variables")]
     [SerializeField] private AnimationCurve horizontalMoveForce;
@@ -39,6 +42,14 @@ public class PlayerController : MonoBehaviour, IColourable
 
     void Update()
     {
+        if(combat.isDead)
+        {
+        #if UNITY_EDITOR
+            EditorApplication.ExitPlaymode();
+        #endif
+            Application.Quit();
+        }
+
         if(isMovingHorizontal) Move();
 
         rb.linearVelocity = 
@@ -65,16 +76,5 @@ public class PlayerController : MonoBehaviour, IColourable
     private void Jump()
     {
         if(isGrounded) rb.AddForce(jumpForce.Evaluate(0.0f) * Vector2.up);
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.TryGetComponent<IColourable>(out IColourable colourable) 
-            && (this as IColourable).GetCurrentColourIndex(out int colourIndex)
-            && colourable.GetCurrentColourIndex(out int otherColourIndex))
-        {
-            if(colourIndex == otherColourIndex) Debug.Log("Same!");
-            if(colourIndex == -otherColourIndex) Debug.Log("Opposite!");
-        }
     }
 }
