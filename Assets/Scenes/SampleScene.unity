@@ -487,6 +487,7 @@ GameObject:
   - component: {fileID: 1001270696}
   - component: {fileID: 1001270695}
   - component: {fileID: 1001270699}
+  - component: {fileID: 1001270700}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -651,6 +652,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sr: {fileID: 1001270697}
   colourIndex: 1
+--- !u!114 &1001270700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001270694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 972b41841f79e9a0e9a86560d91ecb1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colourable: {fileID: 1001270699}
+  damage: 20
 --- !u!1 &1001653668
 GameObject:
   m_ObjectHideFlags: 0
@@ -854,8 +869,9 @@ GameObject:
   - component: {fileID: 1913962355}
   - component: {fileID: 1913962354}
   - component: {fileID: 1913962353}
-  - component: {fileID: 1913962352}
+  - component: {fileID: 1913962356}
   - component: {fileID: 1913962351}
+  - component: {fileID: 1913962352}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -951,6 +967,7 @@ MonoBehaviour:
   rb: {fileID: 1913962352}
   groundCheckCollider: {fileID: 1664369782}
   sr: {fileID: 1913962354}
+  combat: {fileID: 1913962356}
   horizontalMoveForce:
     serializedVersion: 2
     m_Curve:
@@ -1063,6 +1080,21 @@ Transform:
   - {fileID: 1664369781}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1913962356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1913962350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 573821c33a7880f789740e5588760627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  team: 0
+  health: 100
+  maxHealth: 100
 --- !u!1 &1952857006
 GameObject:
   m_ObjectHideFlags: 0
