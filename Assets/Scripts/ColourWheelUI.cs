@@ -6,22 +6,34 @@ using UnityEngine.UIElements;
 public partial class ColourWheelUI : VisualElement
 {
     [Serializable]
-    public struct Values
+    public struct UIValues
     {
         public float radius;
         public float width;
-        public float padding;
-        public Vector2 center => (radius + width / 2 + padding) * Vector2.one;
+        [Tooltip("Relative to screen")]
+        public Vector2 center;
+        public static UIValues Lerp(UIValues start, UIValues end, float t)
+        {
+            UIValues res = new UIValues();
+            res.radius = ( 1 - t ) * start.radius + t * end.radius;
+            res.width = ( 1 - t ) * start.width + t * end.width;
+            res.center = ( 1 - t ) * start.center + t * end.center;
+            return res;
+        }
     }
 
-    private Values values;
+    private UIValues values;
+    public UIValues Values { get => values; set { values = value; MarkDirtyRepaint(); } }
+
+    private Color? selectedColour;
+    public Color? SelectedColour { get => selectedColour; set { selectedColour = value; MarkDirtyRepaint(); } }
 
     public ColourWheelUI()
     {
-        this.values = new Values();
+        this.values = new UIValues();
     }
 
-    public ColourWheelUI(Values values)
+    public ColourWheelUI(UIValues values)
     {
         this.values = values;
         generateVisualContent += GenerateVisualContent;
@@ -29,8 +41,9 @@ public partial class ColourWheelUI : VisualElement
 
     private void GenerateVisualContent(MeshGenerationContext ctx)
     {
+        Vector2 screenSize = new Vector2(Screen.width, Screen.height);
+
         Painter2D painter = ctx.painter2D;
-        painter.lineWidth = values.width;
         painter.lineCap = LineCap.Butt;
         ColoursDB coloursDB = DataBase.Instance.Colours;
         float angle = 0.0f; float nextAngle = 0.0f;
@@ -39,24 +52,20 @@ public partial class ColourWheelUI : VisualElement
             nextAngle += 180.0f / coloursDB.ColourPairCount;
 
             painter.strokeColor = pair.colour;
+            painter.lineWidth = (painter.strokeColor == selectedColour ? 1.5f : 1.0f) * values.width;
 
             painter.BeginPath();
-            painter.Arc(values.center, values.radius, angle, nextAngle);
+            painter.Arc(Vector2.Scale(values.center, screenSize), values.radius, angle, nextAngle);
             painter.Stroke();
 
             painter.strokeColor = pair.opposite;
+            painter.lineWidth = (painter.strokeColor == selectedColour ? 1.5f : 1.0f) * values.width;
 
             painter.BeginPath();
-            painter.Arc(values.center, values.radius, 180.0f + angle, 180.0f + nextAngle);
+            painter.Arc(Vector2.Scale(values.center, screenSize), values.radius, 180.0f + angle, 180.0f + nextAngle);
             painter.Stroke();
 
             angle = nextAngle;
         }
-    }
-
-    public void SetValues(Values values)
-    {
-        this.values = values;
-        MarkDirtyRepaint();
     }
 }
