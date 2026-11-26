@@ -52,4 +52,21 @@ public class ColoursDB : ScriptableObject
     public List<ColourPair> List => colours;
     public int ColourPairCount => colours.Count;
     public int ColourCount => 2 * ColourPairCount;
+
+    public bool GetColourIndex(Color colour, out int colourIndex)
+    {
+        colourIndex = 0;
+        for(int i = 0; i < colours.Count; ++i)
+        {
+            if(colours[i].colour == colour) {
+                colourIndex = i + 1;
+                return true;
+            }
+            if(colours[i].opposite == colour) {
+                colourIndex = -(i + 1);
+                return true;
+            }
+        }
+        return false;
+    }
 }

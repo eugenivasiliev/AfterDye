@@ -8,4 +8,6 @@ public interface IColourable
         Color? nullableColour = DataBase.Instance.Colours[colourIndex];
         if(nullableColour is Color colour) Renderer.material.SetColor("_Color", colour);
     }
+    public Color currentColour => Renderer.material.GetColor("_Color");
+    public bool GetCurrentColourIndex(out int colourIndex) => DataBase.Instance.Colours.GetColourIndex(currentColour, out colourIndex);
 }
