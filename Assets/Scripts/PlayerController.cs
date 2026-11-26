@@ -66,4 +66,15 @@ public class PlayerController : MonoBehaviour, IColourable
     {
         if(isGrounded) rb.AddForce(jumpForce.Evaluate(0.0f) * Vector2.up);
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.TryGetComponent<IColourable>(out IColourable colourable) 
+            && (this as IColourable).GetCurrentColourIndex(out int colourIndex)
+            && colourable.GetCurrentColourIndex(out int otherColourIndex))
+        {
+            if(colourIndex == otherColourIndex) Debug.Log("Same!");
+            if(colourIndex == -otherColourIndex) Debug.Log("Opposite!");
+        }
+    }
 }
