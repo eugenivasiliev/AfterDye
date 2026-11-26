@@ -504,10 +504,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bdfc5c1b86c5aacf92b1d0a3b31092b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colourWheelValues:
-    radius: 50
-    width: 40
-    padding: 25
+  colourWheelTween:
+    startValue:
+      radius: 50
+      width: 20
+      center: {x: 0.15, y: 0.15}
+    endValue:
+      radius: 200
+      width: 80
+      center: {x: 0.5, y: 0.5}
+    t: 0
+    duration: 0.1
+    clamped: 1
+    reversing: 0
+  isFocused: 0
+  player: {fileID: 1913962353}
 --- !u!114 &1001653670
 MonoBehaviour:
   m_ObjectHideFlags: 0
